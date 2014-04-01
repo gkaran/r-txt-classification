@@ -46,11 +46,7 @@ split.neg.train.size  <- floor(split.neg.size * split.percentage)
 split.pos.test.size   <- split.pos.size - split.pos.train.size
 split.neg.test.size   <- split.neg.size - split.neg.train.size
 corpus.train          <- c(pos[1:split.pos.train.size], neg[1:split.neg.train.size])
-corpus.test           <- c(pos[(split.pos.train.size + 1) : split.pos.size],
-                           neg[(split.neg.train.size + 1) : split.neg.size])
-
-# Create a merged corpus
-#corpus <- c(pos, neg)
+corpus.test           <- c(pos[(split.pos.train.size + 1) : split.pos.size], neg[(split.neg.train.size + 1) : split.neg.size])
 
 # Perform the preprocessing
 print("Pre-processing corpuses...")
@@ -78,11 +74,9 @@ corpus.test.df  <- cbind(corpus.test.df, class.test)
 
 # Train classifier
 print("Training classifier...")
-classifier <- naiveBayes(corpus.train.df[, 1 : (ncol(corpus.train.df) - 1)],
-                         corpus.train.df[, ncol(corpus.train.df)])
+classifier <- naiveBayes(corpus.train.df[, 1 : (ncol(corpus.train.df) - 1)], corpus.train.df[, ncol(corpus.train.df)])
 
 # Evaluate Classifier
 print("Evaluating...")
-corpus.predictions <- predict(classifier,
-                              corpus.test.df[, (-1 * ncol(corpus.test.df))])
+corpus.predictions <- predict(classifier, corpus.test.df[, (-1 * ncol(corpus.test.df))])
 corpus.results     <- table(corpus.predictions, corpus.test.df[ncol(corpus.test.df)])
