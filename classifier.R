@@ -79,4 +79,4 @@ classifier <- naiveBayes(corpus.train.df[, 1 : (ncol(corpus.train.df) - 1)], cor
 # Evaluate Classifier
 print("Evaluating...")
 corpus.predictions <- predict(classifier, corpus.test.df[, (-1 * ncol(corpus.test.df))])
-corpus.results     <- table(corpus.predictions, corpus.test.df[ncol(corpus.test.df)])
+corpus.results     <- table(corpus.predictions, corpus.test.df[,ncol(corpus.test.df)])
